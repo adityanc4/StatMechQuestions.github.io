@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stat Mech — All Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f5f0;
+  --paper: #fefcf8;
+  --ink: #1c1a14;
+  --muted: #7a7060;
+  --border: #ddd8cc;
+  --accent: #8b1a1a;
+  --gold: #a07828;
+  --gold-bg: #fdf8ec;
+  --green: #1e5c38;
+  --green-bg: #f0f7f3;
+  --blue: #1a3a6c;
+  --blue-bg: #f0f4fb;
+  --purple: #4a2060;
+  --purple-bg: #f6f0fb;
+  --orange: #8b4010;
+  --orange-bg: #fdf4ec;
+  --mono: 'Inconsolata', monospace;
+  --body: 'Jost', sans-serif;
+  --display: 'Cormorant Garamond', serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 56px 48px 44px;
+  position: relative;
+  overflow: hidden;
+}
+header::after {
+  content: 'STATISTICAL MECHANICS';
+  position: absolute;
+  bottom: -24px; right: -10px;
+  font-family: var(--display);
+  font-size: 120px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.03);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+.h-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(247,245,240,0.4);
+  margin-bottom: 16px;
+}
+header h1 {
+  font-family: var(--display);
+  font-size: 52px;
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+header h1 span { color: #d4a840; font-style: italic; }
+.h-sub {
+  font-size: 14px;
+  color: rgba(247,245,240,0.45);
+  font-weight: 300;
+  max-width: 500px;
+  margin-bottom: 28px;
+}
+.h-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.h-stat {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(247,245,240,0.5);
+}
+.h-stat strong {
+  color: #d4a840;
+  font-size: 20px;
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+}
+.accent-line {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 40%, transparent 100%);
+}
+
+/* ── NAV ── */
+.nav-bar {
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+}
+.nav-inner {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.nav-btn {
+  border: none;
+  background: none;
+  padding: 13px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.on { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ── LAYOUT ── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 44px 32px 80px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: sticky;
+  top: 54px;
+}
+.sb-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.sb-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.15s;
+  margin-bottom: 2px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.sb-link:hover { background: var(--border); color: var(--ink); }
+.sb-link.active { background: var(--ink); color: var(--bg); }
+.sb-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sb-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+/* ── CONTENT ── */
+.content {}
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 48px;
+  scroll-margin-top: 68px;
+}
+.sec-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.sec-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+.sec-title {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+}
+.sec-badge {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.q-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+
+.q-inner {
+  display: grid;
+  grid-template-columns: 4px 1fr;
+}
+.q-stripe { border-radius: 0; }
+
+.q-main { padding: 16px 18px; }
+
+.q-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.q-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  letter-spacing: 0.05em;
+}
+.q-text {
+  font-family: var(--display);
+  font-size: 16.5px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+  flex: 1;
+}
+.q-text sup { font-size: 10px; }
+
+.q-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.tag-src {
+  background: var(--ink);
+  color: var(--bg);
+}
+.tag-prev {
+  background: #fdf0d0;
+  color: #7a5000;
+}
+.tag-num-tag {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+.tag-deriv {
+  background: var(--purple-bg);
+  color: var(--purple);
+}
+.tag-concept {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+.tag-high {
+  background: #fdf0f0;
+  color: var(--accent);
+}
+.src-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  margin-left: 2px;
+}
+
+/* ── COLOUR SCHEME PER SECTION ── */
+.c-phase    { background: #6a9cb0; }
+.c-prob     { background: #a07828; }
+.c-ensemble { background: #6a8c6a; }
+.c-micro    { background: #8b5e8b; }
+.c-distrib  { background: #8b1a1a; }
+.c-velocity { background: #5a7aa0; }
+.c-quantum  { background: #2e6e5a; }
+.c-numerical{ background: #8b5030; }
+
+/* Stripe colours */
+.stripe-phase    { background: #6a9cb0; }
+.stripe-prob     { background: #a07828; }
+.stripe-ensemble { background: #6a8c6a; }
+.stripe-micro    { background: #8b5e8b; }
+.stripe-distrib  { background: #8b1a1a; }
+.stripe-velocity { background: #5a7aa0; }
+.stripe-quantum  { background: #2e6e5a; }
+.stripe-numerical{ background: #8b5030; }
+
+/* Sub-question styling */
+.q-sub {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+.q-sub-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 14.5px;
+  color: #4a4030;
+  font-family: var(--display);
+}
+.q-sub-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.q-marks {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── PRINT BUTTON ── */
+.print-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: all 0.15s;
+  z-index: 200;
+}
+.print-btn:hover { background: var(--accent); transform: translateY(-2px); }
+
+@media (max-width: 760px) {
+  .page { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  header { padding: 36px 20px 32px; }
+  header h1 { font-size: 36px; }
+}
+
+@media print {
+  .nav-bar, .sidebar, .print-btn { display: none !important; }
+  .page { grid-template-columns: 1fr; padding: 20px; }
+  .q-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="accent-line"></div>
+<header>
+  <div class="h-eyebrow">BSc Physics · Statistical Mechanics · Exam Preparation</div>
+  <h1>All <span>Questions</span></h1>
+  <p class="h-sub">Every question from your previous papers, deduplicated and organised by topic with text references.</p>
+  <div class="h-stats">
+    <div class="h-stat"><strong>37</strong>Unique Questions</div>
+    <div class="h-stat"><strong>8</strong>Topics</div>
+    <div class="h-stat"><strong>6</strong>Numericals</div>
+    <div class="h-stat"><strong>7</strong>Derivations</div>
+  </div>
+</header>
+<div class="accent-line"></div>
+
+<!-- NAV -->
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn on" onclick="filterAll(this)">All</button>
+    <button class="nav-btn" onclick="filterSec('phase', this)">Phase Space</button>
+    <button class="nav-btn" onclick="filterSec('prob', this)">Probability</button>
+    <button class="nav-btn" onclick="filterSec('ensemble', this)">Ensembles</button>
+    <button class="nav-btn" onclick="filterSec('micro', this)">Microstates</button>
+    <button class="nav-btn" onclick="filterSec('distrib', this)">Distributions</button>
+    <button class="nav-btn" onclick="filterSec('velocity', this)">Velocities</button>
+    <button class="nav-btn" onclick="filterSec('quantum', this)">Quantum Stats</button>
+    <button class="nav-btn" onclick="filterSec('numerical', this)">Numericals</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sb-label">Jump to Section</div>
+    <button class="sb-link active" onclick="jumpTo('phase', this)"><div class="sb-dot c-phase"></div>Phase Space<span class="sb-count">5</span></button>
+    <button class="sb-link" onclick="jumpTo('prob', this)"><div class="sb-dot c-prob"></div>Probability<span class="sb-count">5</span></button>
+    <button class="sb-link" onclick="jumpTo('ensemble', this)"><div class="sb-dot c-ensemble"></div>Ensembles<span class="sb-count">2</span></button>
+    <button class="sb-link" onclick="jumpTo('micro', this)"><div class="sb-dot c-micro"></div>Microstates<span class="sb-count">6</span></button>
+    <button class="sb-link" onclick="jumpTo('distrib', this)"><div class="sb-dot c-distrib"></div>Distributions<span class="sb-count">6</span></button>
+    <button class="sb-link" onclick="jumpTo('velocity', this)"><div class="sb-dot c-velocity"></div>Velocities<span class="sb-count">3</span></button>
+    <button class="sb-link" onclick="jumpTo('quantum', this)"><div class="sb-dot c-quantum"></div>Quantum Stats<span class="sb-count">4</span></button>
+    <button class="sb-link" onclick="jumpTo('numerical', this)"><div class="sb-dot c-numerical"></div>Numericals<span class="sb-count">6</span></button>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ── SECTION 1: PHASE SPACE ── -->
+    <div class="section" id="phase" data-sec="phase">
+      <div class="sec-header">
+        <span class="sec-num">01</span>
+        <span class="sec-title">Phase Space &amp; Dynamical Systems</span>
+        <span class="sec-badge">5 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="phase">
+        <div class="q-inner">
+          <div class="q-stripe stripe-phase"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">P·01</span>
+              <div class="q-text">A particle is stationary at a point x = a where a &gt; 0. Identify the position of the particle in the phase space.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Conceptual</span>
+              <span class="src-text">→ Satya Prakash Sec.6.6 p.225</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="phase">
+        <div class="q-inner">
+          <div class="q-stripe stripe-phase"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">P·02</span>
+              <div class="q-text">A particle moves freely along the x-axis with constant velocity v, within the range −∞ &lt; x &lt; ∞. Draw the trajectory of the particle in phase space.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Draw</span>
+              <span class="src-text">→ Satya Prakash Sec.6.6 p.225</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="phase">
+        <div class="q-inner">
+          <div class="q-stripe stripe-phase"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">P·03</span>
+              <div class="q-text">Name the physical quantities needed to specify the state of a dynamical particle. How is the state of the particle represented in phase space?</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Short Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.6 p.225</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="phase">
+        <div class="q-inner">
+          <div class="q-stripe stripe-phase"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">P·04</span>
+              <div class="q-text">Explain how the conception of state for a single particle in phase space can be generalised from a point to an infinitesimal volume. Write a note on the minimum cell size in classical and quantum statistics — suggest an order-of-magnitude estimate using quantum mechanics, and explain why classical mechanics cannot give the same estimate.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Long Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.6 p.225 + Sec.6.19 p.244</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="phase">
+        <div class="q-inner">
+          <div class="q-stripe stripe-phase"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">P·05</span>
+              <div class="q-text">Distinguish between a static system and a dynamic system in statistical mechanics. Give one example of each.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Distinguish</span>
+              <span class="src-text">→ Satya Prakash Sec.6.1 p.213</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 2: PROBABILITY & POSTULATES ── -->
+    <div class="section" id="prob" data-sec="prob">
+      <div class="sec-header">
+        <span class="sec-num">02</span>
+        <span class="sec-title">Probability, Postulates &amp; Entropy</span>
+        <span class="sec-badge">5 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="prob">
+        <div class="q-inner">
+          <div class="q-stripe stripe-prob"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">B·01</span>
+              <div class="q-text">What is the basic postulate of statistical physics? Explain its physical justification.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Short Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.12 p.233</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="prob">
+        <div class="q-inner">
+          <div class="q-stripe stripe-prob"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">B·02</span>
+              <div class="q-text">Discuss the additive and multiplicative laws of probability. State and explain the fundamental postulates of statistical mechanics.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Long Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.2 p.214 + Sec.6.12 p.233</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="prob">
+        <div class="q-inner">
+          <div class="q-stripe stripe-prob"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">B·03</span>
+              <div class="q-text">What do you understand by thermodynamic probability W? Obtain an expression for W for a system of N distinguishable particles with occupation numbers n₁, n₂, …</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Short Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.14 p.234</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="prob">
+        <div class="q-inner">
+          <div class="q-stripe stripe-prob"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">B·04</span>
+              <div class="q-text">Qualitatively discuss Boltzmann's entropy relation. Obtain the relation S = k<sub>B</sub> ln W and explain its significance for a system in thermodynamic equilibrium.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Long Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.30 p.270</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="prob">
+        <div class="q-inner">
+          <div class="q-stripe stripe-prob"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">B·05</span>
+              <div class="q-text">Explain the conceptions of distinguishability and indistinguishability of particles in statistical physics. How does this affect microstate counting?</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Conceptual</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233 + Sec.8.4 p.360</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 3: ENSEMBLES ── -->
+    <div class="section" id="ensemble" data-sec="ensemble">
+      <div class="sec-header">
+        <span class="sec-num">03</span>
+        <span class="sec-title">Ensembles</span>
+        <span class="sec-badge">2 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="ensemble">
+        <div class="q-inner">
+          <div class="q-stripe stripe-ensemble"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">E·01</span>
+              <div class="q-text">What is an ensemble? Compare the microcanonical, canonical, and grand canonical ensembles using schematic representations — stating what is fixed and what fluctuates in each case.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Long Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.7.18 p.333 + Sec.7.0–7.1 p.288</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="ensemble">
+        <div class="q-inner">
+          <div class="q-stripe stripe-ensemble"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">E·02</span>
+              <div class="q-text">State and explain Liouville's theorem. What does it imply about the evolution of a system in phase space?</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-concept">Conceptual</span>
+              <span class="src-text">→ Satya Prakash Sec.6.9 p.228</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 4: MICROSTATES ── -->
+    <div class="section" id="micro" data-sec="micro">
+      <div class="sec-header">
+        <span class="sec-num">04</span>
+        <span class="sec-title">Microstates, Macrostates &amp; Counting</span>
+        <span class="sec-badge">6 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="micro">
+        <div class="q-inner">
+          <div class="q-stripe stripe-micro"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">M·01</span>
+              <div class="q-text">Explain the concepts of macrostates and microstates in a statistical system. How many microstates can correspond to a single macrostate?</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Short Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="micro">
+        <div class="q-inner">
+          <div class="q-stripe stripe-micro"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">M·02</span>
+              <div class="q-text">Consider the phase space area divided into cells of area dx·dp<sub>x</sub> = h₀. For a one-particle or two-particle system in the allowed region: (A) Count total number of cells C. (B) Find the total number of microstates W — the number of ways all particles can be accommodated in C cells, with at most one particle per cell. Consider filled and unfilled circles as distinguishable particles; two filled (or two unfilled) circles as indistinguishable particles.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Cell Counting</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233 + Sec.6.19 p.244</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="micro">
+        <div class="q-inner">
+          <div class="q-stripe stripe-micro"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">M·03</span>
+              <div class="q-text">Obtain the probability function W and the energy distribution function of distinguishable particles using Maxwell-Boltzmann statistics.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.6.15 p.236 + Sec.6.16 p.237 + Sec.6.21 p.245</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="micro">
+        <div class="q-inner">
+          <div class="q-stripe stripe-micro"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">M·04</span>
+              <div class="q-text">Distinguish between classical statistics and quantum statistics. On what basis are the three statistics — MB, FD, and BE — distinguished from each other?</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Distinguish</span>
+              <span class="src-text">→ Satya Prakash Sec.8.16 p.379 + Sec.8.4 p.360</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="micro">
+        <div class="q-inner">
+          <div class="q-stripe stripe-micro"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">M·05</span>
+              <div class="q-text">Based on the occupation index (n<sub>i</sub>/g<sub>i</sub>) and energy ε<sub>i</sub>, discuss the different cases in which FD and BE statistics approach MB statistics, and the cases in which they deviate from each other.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Analytical</span>
+              <span class="src-text">→ Satya Prakash Sec.8.16 p.379 + Sec.8.19(a) p.394</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="micro">
+        <div class="q-inner">
+          <div class="q-stripe stripe-micro"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">M·06</span>
+              <div class="q-text">Multi-part question on microstates and phase space:</div>
+            </div>
+            <div class="q-sub">
+              <div class="q-sub-item">
+                <span class="q-sub-label">(i)</span>
+                <span>Take a system of N particles. Write in your own words the conception of a macrostate.</span>
+              </div>
+              <div class="q-sub-item">
+                <span class="q-sub-label">(ii)</span>
+                <span>Take a single particle. How would you define its state in the phase space?</span>
+              </div>
+              <div class="q-sub-item">
+                <span class="q-sub-label">(iii)</span>
+                <span>Consider a phase space area divided into a mesh of cells, each of area dx·dp<sub>x</sub> = h₀, showing the allowed region for a one- or two-particle system. Filled and unfilled circles are distinguishable; two filled (or two unfilled) circles represent indistinguishable particles. Assume at most one particle per cell.<br>
+                (A) Count the total number of cells C in each case.<br>
+                (B) Define W as the number of ways all particles can be accommodated in the C cells. Find W in each case.</span>
+              </div>
+            </div>
+            <div class="q-footer" style="margin-top:12px;">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Multi-part</span>
+              <span class="src-text">→ Sec.6.13 p.233 (i) · Sec.6.6 p.225 (ii) · Sec.6.13 + Sec.6.19 p.233–244 (iii)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 5: DISTRIBUTIONS ── -->
+    <div class="section" id="distrib" data-sec="distrib">
+      <div class="sec-header">
+        <span class="sec-num">05</span>
+        <span class="sec-title">Distribution Laws — Derivations</span>
+        <span class="sec-badge">6 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="distrib">
+        <div class="q-inner">
+          <div class="q-stripe stripe-distrib"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">D·01</span>
+              <div class="q-text">Based on classical statistics, derive the Maxwell-Boltzmann velocity distribution law. Clearly state the constraints used and identify the physical meaning of the Lagrange multipliers.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.6.15 p.236 + Sec.6.16 p.237 + Sec.6.21–6.22 p.245–250</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="distrib">
+        <div class="q-inner">
+          <div class="q-stripe stripe-distrib"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">D·02</span>
+              <div class="q-text">Explain the characteristics of bosons. Derive the Bose-Einstein energy distribution law.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.8.4 p.360 + Sec.8.12 p.370</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="distrib">
+        <div class="q-inner">
+          <div class="q-stripe stripe-distrib"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">D·03</span>
+              <div class="q-text">What are fermions? Derive the Fermi-Dirac energy distribution function. Write down W<sub>i</sub> for fermions and explain physically why it differs from the MB case.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.8.4 p.360 + Sec.8.13 p.373 + Sec.8.15 p.378</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="distrib">
+        <div class="q-inner">
+          <div class="q-stripe stripe-distrib"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">D·04</span>
+              <div class="q-text">Derive all three distribution laws (MB, FD, BE) and highlight the single step in the derivation where they differ from each other.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.6.16 p.237 + Sec.8.12 p.370 + Sec.8.13 p.373 + Sec.8.16 p.379</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="distrib">
+        <div class="q-inner">
+          <div class="q-stripe stripe-distrib"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">D·05</span>
+              <div class="q-text">Compare the three statistical distribution functions — MB, FD, and BE — with physical examples. Discuss the classical limit in which FD and BE both reduce to MB.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Comparison Table</span>
+              <span class="src-text">→ Satya Prakash Sec.8.16 p.379 + Sec.8.19(a) p.394</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="distrib">
+        <div class="q-inner">
+          <div class="q-stripe stripe-distrib"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">D·06</span>
+              <div class="q-text">State Stirling's approximation. Show how it is used to simplify ln(N!) for large N, and explain why it is indispensable in statistical mechanics.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-concept">Short Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.6.15 p.236</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 6: VELOCITIES ── -->
+    <div class="section" id="velocity" data-sec="velocity">
+      <div class="sec-header">
+        <span class="sec-num">06</span>
+        <span class="sec-title">Velocities &amp; Mean Free Path</span>
+        <span class="sec-badge">3 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="velocity">
+        <div class="q-inner">
+          <div class="q-stripe stripe-velocity"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">V·01</span>
+              <div class="q-text">Deduce expressions for mean velocity v̄, rms velocity v<sub>rms</sub>, and most probable velocity v<sub>p</sub> from Maxwell's law of velocity distribution. Show that their ratio is equal to 1.596 : 1.732 : 1.414.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.6.23–6.24 p.250–265</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="velocity">
+        <div class="q-inner">
+          <div class="q-stripe stripe-velocity"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">V·02</span>
+              <div class="q-text">Derive an expression for the mean free path λ of a molecule in an ideal gas. Explain why a factor of √2 appears when the motion of all molecules is accounted for.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.6.23 p.250 (kinetic theory section)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="velocity">
+        <div class="q-inner">
+          <div class="q-stripe stripe-velocity"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">V·03</span>
+              <div class="q-text">Starting from Maxwell's speed distribution, show that the normalization condition ∫₀^∞ f(v) dv = N is satisfied. State the Gaussian integral result required.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-concept">Proof</span>
+              <span class="src-text">→ Satya Prakash Sec.6.23 p.250</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 7: QUANTUM STATS ── -->
+    <div class="section" id="quantum" data-sec="quantum">
+      <div class="sec-header">
+        <span class="sec-num">07</span>
+        <span class="sec-title">Quantum Statistics — Particles &amp; Applications</span>
+        <span class="sec-badge">4 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="quantum">
+        <div class="q-inner">
+          <div class="q-stripe stripe-quantum"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">Q·01</span>
+              <div class="q-text">What are fermions and bosons? Compare their properties with examples. Include spin, wavefunction symmetry, exclusion principle, and physical consequences.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-concept">Long Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.8.4 p.360 + Sec.8.5 p.361</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="quantum">
+        <div class="q-inner">
+          <div class="q-stripe stripe-quantum"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">Q·02</span>
+              <div class="q-text">Draw the Fermi-Dirac distribution function f(ε) vs ε at T = 0 K and at T &gt; 0 K on the same graph. Explain the physical significance of the Fermi energy E<sub>F</sub>. Derive an expression for E<sub>F</sub> at T = 0 in terms of electron density n.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-concept">Draw + Derive</span>
+              <span class="src-text">→ Satya Prakash Sec.8.20 p.397 + Sec.8.21 p.405 + Sec.8.22 p.406</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="quantum">
+        <div class="q-inner">
+          <div class="q-stripe stripe-quantum"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">Q·03</span>
+              <div class="q-text">Show that the photon gas obeys Bose-Einstein statistics with chemical potential μ = 0. Hence derive Planck's radiation formula. Show that the Stefan-Boltzmann law follows by integrating over all frequencies.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-deriv">Derivation</span>
+              <span class="src-text">→ Satya Prakash Sec.8.17 p.386</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="quantum">
+        <div class="q-inner">
+          <div class="q-stripe stripe-quantum"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">Q·04</span>
+              <div class="q-text">Explain the specific heat anomaly of metals. Why does the electronic heat capacity behave as C<sub>e</sub> ∝ T rather than the classical prediction of (3/2)Nk<sub>B</sub>? Use the Fermi-Dirac distribution in your explanation.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-concept">Long Answer</span>
+              <span class="src-text">→ Satya Prakash Sec.8.22 p.406 + Sec.8.23 p.412</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SECTION 8: NUMERICALS ── -->
+    <div class="section" id="numerical" data-sec="numerical">
+      <div class="sec-header">
+        <span class="sec-num">08</span>
+        <span class="sec-title">Numericals &amp; Tabulations</span>
+        <span class="sec-badge">6 questions</span>
+      </div>
+
+      <div class="q-card" data-sec="numerical">
+        <div class="q-inner">
+          <div class="q-stripe stripe-numerical"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">N·01</span>
+              <div class="q-text">Consider 2 identical particles distributed in 3 energy levels. Neatly tabulate the possible combinations if the particles obey: (a) Maxwell-Boltzmann statistics, (b) Fermi-Dirac statistics, and (c) Bose-Einstein statistics. Count the total number of possible combinations in each case.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Numerical Table</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233 + Sec.8.16 p.379</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="numerical">
+        <div class="q-inner">
+          <div class="q-stripe stripe-numerical"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">N·02</span>
+              <div class="q-text">Consider 3 identical particles distributed in 3 energy levels. Neatly tabulate the possible combinations if the particles obey: (a) Maxwell-Boltzmann statistics, (b) Fermi-Dirac statistics, and (c) Bose-Einstein statistics. Count the total number of possible combinations in each case.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Numerical Table</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233 + Sec.8.16 p.379</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="numerical">
+        <div class="q-inner">
+          <div class="q-stripe stripe-numerical"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">N·03</span>
+              <div class="q-text">A system consists of 5 particles arranged in two compartments. The first compartment is divided into 6 cells and the second into 8 cells. If the cells are of equal size, calculate the number of microstates corresponding to the macrostate (2, 3) according to (i) MB, (ii) BE, and (iii) FD statistics.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Numerical</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233 + Sec.6.16 p.237</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="numerical">
+        <div class="q-inner">
+          <div class="q-stripe stripe-numerical"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">N·04</span>
+              <div class="q-text">If 5 distinguishable particles are distributed in two cells of the same size, in which each cell is divided into 2 and 3 subshells respectively, what is the probability of the system being in macrostate (1, 4)?</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Numerical</span>
+              <span class="src-text">→ Satya Prakash Sec.6.13 p.233 + Sec.6.16 p.237</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="numerical">
+        <div class="q-inner">
+          <div class="q-stripe stripe-numerical"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">N·05</span>
+              <div class="q-text">Calculate the probability for the occurrence of (i) 5 heads &amp; 5 tails and (ii) 7 heads &amp; 3 tails, while tossing a coin 10 times.</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Numerical</span>
+              <span class="src-text">→ Satya Prakash Sec.6.3 p.215</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card" data-sec="numerical">
+        <div class="q-inner">
+          <div class="q-stripe stripe-numerical"></div>
+          <div class="q-main">
+            <div class="q-top">
+              <span class="q-num">N·06</span>
+              <div class="q-text">Calculate the probability that the speed of an oxygen molecule lies between 99.5 and 100.5 m/s at T = 200 K. (M<sub>O₂</sub> = 32 × 10⁻³ kg/mol, k<sub>B</sub> = 1.38 × 10⁻²³ J/K)</div>
+            </div>
+            <div class="q-footer">
+              <span class="tag tag-prev">Previously Asked</span>
+              <span class="tag tag-num-tag">Numerical</span>
+              <span class="src-text">→ Satya Prakash Sec.6.23 p.250</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end page -->
+
+<button class="print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+
+<script>
+function filterSec(sec, btn) {
+  document.querySelectorAll('.section').forEach(s => {
+    s.style.display = s.dataset.sec === sec ? 'block' : 'none';
+  });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => {
+    if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'"+sec+"'")) l.classList.add('active');
+  });
+}
+function filterAll(btn) {
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.sb-link')[0].classList.add('active');
+}
+function jumpTo(sec, linkEl) {
+  // Make all sections visible first
+  document.querySelectorAll('.section').forEach(s => s.style.display = 'block');
+  // Reset nav bar to "All"
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.nav-btn')[0].classList.add('on');
+  // Update sidebar active state
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+  // Scroll to section
+  const el = document.getElementById(sec);
+  if (el) {
+    const offset = 70; // account for sticky nav
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+}
+</script>
+</body>
+</html>
