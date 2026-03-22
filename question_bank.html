@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observational Astronomy — Full Question Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --surface: #13161d;
+  --surface2: #1a1e28;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e6e0;
+  --muted: #7a7d8a;
+  --accent: #c9a84c;
+  --accent-dim: rgba(201,168,76,0.12);
+  --accent-border: rgba(201,168,76,0.3);
+  --teal: #4ab8a0;
+  --teal-dim: rgba(74,184,160,0.1);
+  --rose: #c96b6b;
+  --rose-dim: rgba(201,107,107,0.1);
+  --blue: #6b9fd4;
+  --blue-dim: rgba(107,159,212,0.1);
+  --green: #7fb87a;
+  --green-dim: rgba(127,184,122,0.1);
+  --sidebar-w: 260px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+#sidebar::-webkit-scrollbar { width: 4px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+.sb-header {
+  padding: 28px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sb-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--accent);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.sb-sub { font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+.sb-search {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sb-search input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--text);
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+.sb-search input:focus { border-color: var(--accent-border); }
+.sb-search input::placeholder { color: var(--muted); }
+.sb-stats {
+  padding: 10px 16px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px;
+}
+.stat-pill {
+  flex: 1; text-align: center;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 4px;
+}
+.stat-n { font-size: 18px; font-weight: 500; color: var(--accent); display: block; }
+.stat-l { font-size: 10px; color: var(--muted); }
+.sb-nav { padding: 10px 0 20px; flex: 1; }
+.sb-section-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+  padding: 14px 16px 6px;
+}
+.sb-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  cursor: pointer;
+}
+.sb-link:hover { color: var(--text); background: var(--surface2); }
+.sb-link.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim); }
+.sb-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; opacity: .6; }
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.main-header {
+  padding: 40px 48px 32px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.main-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.mh-eyebrow {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.mh-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.mh-sub { font-size: 14px; color: var(--muted); max-width: 560px; }
+.filter-bar {
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+body {
+  overflow: hidden;
+}
+.filter-label { font-size: 11px; color: var(--muted); margin-right: 4px; }
+.filter-btn {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .15s;
+}
+.filter-btn:hover { border-color: var(--accent-border); color: var(--text); }
+.filter-btn.active { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+.content { padding: 0 48px 80px; }
+
+/* ── TOPIC SECTIONS ── */
+.topic-section {
+  padding-top: 48px;
+}
+.topic-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.topic-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.topic-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.topic-desc { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.topic-count {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* ── QUESTION CARDS ── */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.q-card:hover { border-color: var(--border2); }
+.q-head {
+  padding: 16px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.q-num-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+}
+.q-main { flex: 1; min-width: 0; }
+.q-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+.q-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid;
+  letter-spacing: .03em;
+}
+.tag-p1 { background: var(--blue-dim); color: var(--blue); border-color: rgba(107,159,212,0.25); }
+.tag-p2 { background: var(--teal-dim); color: var(--teal); border-color: rgba(74,184,160,0.25); }
+.tag-p3 { background: var(--accent-dim); color: var(--accent); border-color: var(--accent-border); }
+.tag-p4 { background: var(--rose-dim); color: var(--rose); border-color: rgba(201,107,107,0.25); }
+.tag-p5 { background: var(--green-dim); color: var(--green); border-color: rgba(127,184,122,0.25); }
+.tag-diag { background: rgba(127,184,122,0.08); color: var(--green); border-color: rgba(127,184,122,0.2); }
+.tag-calc { background: rgba(201,107,107,0.08); color: var(--rose); border-color: rgba(201,107,107,0.2); }
+.tag-hot { background: rgba(201,107,107,0.15); color: #e08080; border-color: rgba(201,107,107,0.3); }
+.q-chevron { display: none; }
+.q-body {
+  display: block;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+  padding: 18px 18px 18px 60px;
+}
+
+/* sub-parts */
+.sub-part { margin-bottom: 14px; }
+.sub-part:last-child { margin-bottom: 0; }
+.sub-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 4px;
+}
+.sub-text { font-size: 13px; color: var(--text); line-height: 1.65; }
+.sub-marks {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 3px;
+}
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+.or-line { flex: 1; height: 1px; background: var(--border2); }
+.or-tag {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 2px 10px;
+  background: var(--surface);
+  letter-spacing: .05em;
+}
+.hint-box {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--accent);
+  line-height: 1.55;
+}
+.hint-box strong { color: #dab860; }
+
+/* hidden */
+.q-card.hidden { display: none; }
+.section-empty { font-size: 13px; color: var(--muted); padding: 16px 0; font-style: italic; display: none; }
+
+/* ── PRINT ── */
+@media print {
+  #sidebar, .filter-bar { display: none; }
+  #main { margin-left: 0; }
+  .q-body { display: block !important; }
+  .q-chevron { display: none; }
+  body { background: white; color: black; }
+  .q-card { border: 1px solid #ccc; page-break-inside: avoid; }
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sb-header">
+    <div class="sb-title">Observational Astronomy &amp; Astrophysics</div>
+    <div class="sb-sub">BSc Physics · Christ University · 2025–26</div>
+  </div>
+  <div class="sb-search">
+    <input type="text" id="searchInput" placeholder="Search questions..." oninput="filterSearch()">
+  </div>
+  <div class="sb-stats">
+    <div class="stat-pill"><span class="stat-n" id="totalCount">0</span><span class="stat-l">Questions</span></div>
+    <div class="stat-pill"><span class="stat-n">4</span><span class="stat-l">Units</span></div>
+    <div class="stat-pill"><span class="stat-n">10</span><span class="stat-l">Topics</span></div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-section-label">Unit I — Instruments</div>
+    <a class="sb-link" data-target="t1" onclick="goTo('t1')"><span class="sb-dot"></span>Telescopes</a>
+    <a class="sb-link" data-target="t2" onclick="goTo('t2')"><span class="sb-dot"></span>Measurement Techniques</a>
+    <a class="sb-link" data-target="t3" onclick="goTo('t3')"><span class="sb-dot"></span>Databases &amp; Software</a>
+    <a class="sb-link" data-target="t4" onclick="goTo('t4')"><span class="sb-dot"></span>Detectors</a>
+    <div class="sb-section-label">Unit II — The Sun</div>
+    <a class="sb-link" data-target="t5" onclick="goTo('t5')"><span class="sb-dot"></span>Solar Structure &amp; Energy</a>
+    <a class="sb-link" data-target="t6" onclick="goTo('t6')"><span class="sb-dot"></span>Solar Formation &amp; Evolution</a>
+    <a class="sb-link" data-target="t7" onclick="goTo('t7')"><span class="sb-dot"></span>Solar Activity &amp; Properties</a>
+    <div class="sb-section-label">Unit III — Solar System</div>
+    <a class="sb-link" data-target="t8" onclick="goTo('t8')"><span class="sb-dot"></span>Solar System Architecture</a>
+    <a class="sb-link" data-target="t9" onclick="goTo('t9')"><span class="sb-dot"></span>Planet Formation</a>
+    <div class="sb-section-label">Unit IV — Exoplanets</div>
+    <a class="sb-link" data-target="t10" onclick="goTo('t10')"><span class="sb-dot"></span>Exoplanets</a>
+    <div class="sb-section-label">Important 10-Markers</div>
+    <a class="sb-link" onclick="filterPattern('10mark')"><span class="sb-dot"></span>Top 10-mark Questions</a>
+    <a class="sb-link" onclick="filterPattern('all')"><span class="sb-dot"></span>Show All</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="main-header">
+    <div class="mh-eyebrow">End Semester Examination — Full Question Bank</div>
+    <div class="mh-title">Observational Astronomy<br>&amp; Astrophysics</div>
+    <div class="mh-sub">All questions follow the 5 exam patterns identified from previous papers. Click any question to expand it. Use the sidebar to navigate by topic.</div>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter by pattern:</span>
+    <button class="filter-btn active" onclick="filterPattern('all')">All questions</button>
+    <button class="filter-btn" onclick="filterPattern('p1')">Q1 — Diagram+Discuss</button>
+    <button class="filter-btn" onclick="filterPattern('p2')">Q2 — 5+5 Split</button>
+    <button class="filter-btn" onclick="filterPattern('p3')">Q3 — 4+6 Diagrams</button>
+    <button class="filter-btn" onclick="filterPattern('p4')">Q4 — Full OR</button>
+    <button class="filter-btn" onclick="filterPattern('p5')">Q5 — OR Sub-parts</button>
+    <button class="filter-btn" onclick="filterPattern('10mark')" style="margin-left:auto;">⭐ Important 10-markers</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══════════════════════════════ TOPIC 1 ═══════════════════════════════ -->
+    <div class="topic-section" id="t1">
+      <div class="topic-header">
+        <div class="topic-num">T-01</div>
+        <div>
+          <div class="topic-name">Telescopes</div>
+          <div class="topic-desc">Reflectors, Refractors, Mounts · LGP · Resolving Power · Angular Resolution · Magnification · Space Telescopes · Multi-messengers</div>
+        </div>
+        <div class="topic-count">12 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram layers telescope reflector refractor newtonian cassegrain coude nasmyth">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the various types of reflecting telescopes. Explain the optical design and focus arrangement of the Newtonian, Cassegrain, Coudé, and Nasmyth configurations.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a clear labelled ray diagram for each type. For each: name the mirror configuration, state where the focal point is, give one advantage, and name one telescope that uses it (e.g., VLT uses Nasmyth). Finish with a comparison of when each focus type is preferred.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram reflector refractor telescope types">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the working principles of refractor and reflector telescopes. Compare their optical components, chromatic aberration, and suitability for large apertures.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a refractor (objective lens + eyepiece) and a reflector (concave mirror) side by side. Discuss chromatic aberration in refractors, why reflectors avoid it, cost/size limitations of lenses, and why all major research telescopes are reflectors.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate ground space telescope angular resolution magnification">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between ground-based and space-based telescopes in terms of wavelength coverage, angular resolution, atmospheric effects, and cost.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the concept of multi-messenger astronomy and explain how combining gravitational waves, neutrinos, and electromagnetic signals provides a more complete picture of an astrophysical event such as a neutron star merger.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate HST JWST hubble james webb telescope">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the Hubble Space Telescope (HST) and the James Webb Space Telescope (JWST) in terms of mirror size, orbit, wavelength coverage, and scientific goals.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the equatorial mount of a telescope and explain how it compensates for the Earth's rotation to allow long-exposure astronomical imaging.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram reflector prime newtonian cassegrain coude focus differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about refractor and reflector types of telescopes. With the aid of diagrams, differentiate between the prime focus, Newtonian focus, Cassegrain focus, and Coudé focus of telescopes.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for a general discussion of reflector vs refractor types. 6 marks for four distinct ray diagrams (prime, Newtonian, Cassegrain, Coudé) each labelled with mirror arrangement and focal point location.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3" data-text="mounts equatorial alt azimuth telescope types diagram">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the types of telescope mounts used in astronomy. With the aid of diagrams, differentiate between the equatorial mount, alt-azimuth mount, and Dobsonian mount in terms of tracking mechanism, cost, and suitability for different observations.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for general discussion of why mounts matter (tracking, stability). 6 marks for diagram-based comparison of the three mount types.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="light gathering power angular resolution magnification telescope salient features">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of a reflecting telescope. Explain how aperture, focal length, and mirror design determine its light-gathering power, resolving power, and magnification.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the phases through which the development of telescope technology has progressed, from Galileo's refractor to modern segmented mirror telescopes like the ELT and TMT. Discuss the key improvements at each stage.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method magnification angular resolution light gathering power estimate limiting magnitude">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">numerical estimation</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to measure the angular diameter of the Sun using a small telescope and a projection screen. What formula would you use to calculate its angular size?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Rayleigh criterion &nbsp;&nbsp; (2) Seeing (atmospheric turbulence) &nbsp;&nbsp; (3) Adaptive optics.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following magic numbers of telescopes: Light Gathering Power, Angular Resolution, and Magnification. State the formula for each and explain its dependence on aperture and focal length.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the limiting magnitude for telescopes of aperture 8 mm, 150 inches (381 cm), and 15 m. Use the formula: m_lim = 2 + 5 log(D in mm).</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="angular resolution estimate VLT ELT aperture">
+        <div class="q-head" >
+          <div class="q-num-badge">9</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-calc">numerical estimation</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to determine whether two closely spaced stars can be resolved by a telescope. State the Rayleigh criterion and the Dawes limit.</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Diffraction-limited resolution &nbsp;&nbsp; (2) Empty magnification &nbsp;&nbsp; (3) Focal ratio (f-number).</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define Light Gathering Power (LGP), Angular Resolution (θ = 1.22λ/D), and Magnification (M = f_obj/f_eye). Explain what "useful magnification" means and why empty magnification is to be avoided.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the angular resolution of: (i) a 1 m telescope at 550 nm, (ii) the VLT (8.2 m) at 550 nm, and (iii) a 25 m radio telescope at 21 cm. Express each answer in arcseconds and comment on the results.</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram space-based telescope HST JWST Chandra multi-wavelength">
+        <div class="q-head" >
+          <div class="q-num-badge">10</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the major space-based observatories across the electromagnetic spectrum — HST (UV/optical), Chandra (X-ray), Spitzer/JWST (infrared), and Fermi (gamma-ray). Explain what each reveals about the universe that ground-based telescopes cannot.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw the electromagnetic spectrum and mark where each observatory operates. For each telescope: aperture, orbit type, wavelength range, and one landmark discovery.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate Newtonian Cassegrain telescope focus eyepiece">
+        <div class="q-head" >
+          <div class="q-num-badge">11</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the Cassegrain reflector and the Nasmyth focus in terms of their secondary mirror, focal point location, and the type of instruments they can support.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the concept of aperture synthesis in radio astronomy and explain how the Very Large Array (VLA) achieves high angular resolution despite individual small dish sizes.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4" data-text="salient features space telescope advantages disadvantages adaptive optics">
+        <div class="q-head" >
+          <div class="q-num-badge">12</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of adaptive optics systems used in modern ground-based telescopes. How do they correct for atmospheric turbulence in real time?</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the key advantages of space-based telescopes over ground-based ones. Discuss how the James Webb Space Telescope overcomes the limitations of the Hubble Space Telescope.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 2 ═══════════════════════════════ -->
+    <div class="topic-section" id="t2">
+      <div class="topic-header">
+        <div class="topic-num">T-02</div>
+        <div>
+          <div class="topic-name">Measurement Techniques</div>
+          <div class="topic-desc">Photometry · Spectroscopy · Astrometry · Interferometry · Polarimetry</div>
+        </div>
+        <div class="topic-count">8 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram photometry spectroscopy astrometry interferometry differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the measurement techniques used in observational astronomy. With the aid of diagrams, differentiate between photometry, spectroscopy, astrometry, and interferometry in terms of their working principles and the astronomical information they provide.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for an overview of why multiple techniques are needed across wavelengths. 6 marks for four diagrams — each showing the measurement setup and the key observable (flux vs time, spectrum, position, fringe pattern).</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate photometry spectroscopy absorption emission lines">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between photometry and spectroscopy as observational techniques. Compare the information derived, the type of detector used, and an example application of each.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the technique of polarimetry in astronomy and explain what physical processes can produce polarized light from astrophysical sources such as pulsars and dusty disk systems.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate astrometry radial velocity proper motion parallax">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between astrometry and spectroscopy in terms of what is measured, the precision instruments required, and the type of scientific results they produce.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the technique of interferometry and explain how the Event Horizon Telescope (EHT) used very long baseline interferometry (VLBI) to image the shadow of M87* black hole.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features photometry light curve time series variability">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the spectroscopic technique in astronomy. Explain how absorption and emission lines are produced and how they are used to determine the chemical composition, temperature, radial velocity, and redshift of celestial objects.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain how photometric observations are used in time-domain astronomy. Describe the production of light curves and how they are used in variable star studies, supernova detection, and transiting exoplanet identification.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method spectroscopy Doppler shift radial velocity">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-calc">numerical</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to measure the radial velocity of a star using spectroscopy. What is the Doppler formula used, and what precision is achievable with modern spectrographs like HARPS?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Parallax (astrometric distance) &nbsp;&nbsp; (2) Spectral Resolution &nbsp;&nbsp; (3) Signal-to-Noise Ratio (SNR).</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following quantities used in photometric observations: Apparent magnitude, Absolute magnitude, and Colour index (B–V). State the relation between apparent and absolute magnitude.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">A star has an apparent magnitude of 8.5 and is at a distance of 200 pc. Estimate its absolute magnitude using the distance modulus formula: m − M = 5 log(d/10).</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram electromagnetic spectrum multiwavelength astronomy windows">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the electromagnetic windows available for ground-based astronomy. Explain why certain wavelength ranges (UV, X-ray, most IR) require space-based observatories.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw the atmospheric transmission spectrum from radio to gamma-ray. Label the transparent windows (radio, optical, some IR), the opaque regions, and which molecules (H₂O, O₂, O₃, CO₂) cause absorption.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate absorption emission line spectra Fraunhofer Kirchhoff">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between absorption line spectra and emission line spectra. State Kirchhoff's three laws of spectroscopy and give one astronomical example of each type.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the role of the Gaia mission in astrometry and explain how parallax measurements by Gaia have transformed our understanding of stellar distances and the Milky Way's structure.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3" data-text="diagram measurement techniques photometry spectroscopy interferometry polarimetry types">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the electromagnetic spectrum and its significance in observational astronomy. With the aid of diagrams, differentiate between optical, radio, X-ray, and infrared observation techniques in terms of the type of telescope required, atmospheric windows, and the astrophysical processes they reveal.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for why multiwavelength coverage is essential. 6 marks for four comparison diagrams/descriptions — one per wavelength band — with specific telescope examples (Chandra/NuSTAR for X-ray, VLA for radio, VLT/Keck for optical, Spitzer/JWST for IR).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 3 ═══════════════════════════════ -->
+    <div class="topic-section" id="t3">
+      <div class="topic-header">
+        <div class="topic-num">T-03</div>
+        <div>
+          <div class="topic-name">Astronomical Databases &amp; Software</div>
+          <div class="topic-desc">SDSS · MAST · NED · HEASARC · Virtual Observatory · IRAF · CCDlab · CASA · SAS</div>
+        </div>
+        <div class="topic-count">5 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features virtual observatory SDSS MAST NED HEASARC database">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the Virtual Observatory concept in astronomy. How does it allow astronomers to query and cross-match data from multiple archives like SDSS, MAST, NED, and HEASARC simultaneously?</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the key features and scientific capabilities of the Sloan Digital Sky Survey (SDSS). How has it contributed to the study of galaxy distribution, quasar spectra, and the large-scale structure of the universe?</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="explain terms IRAF CASA SAS data analysis software astronomy">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to perform aperture photometry on a CCD image of a star cluster using the software IRAF. What steps are involved from bias subtraction to magnitude extraction?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) IRAF &nbsp;&nbsp; (2) CASA &nbsp;&nbsp; (3) Virtual Observatory.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following astronomical archives: SDSS (Sloan Digital Sky Survey), MAST (Mikulski Archive for Space Telescopes), NED (NASA/IPAC Extragalactic Database), and HEASARC (High Energy Astrophysics Science Archive Research Center). State the type of data each stores.</div><div class="sub-marks">6 marks (1.5 each)</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the data volume generated by a modern wide-field sky survey like LSST/Rubin Observatory, which images the full southern sky every few nights at 3.2 gigapixels. Why does this require distributed database infrastructure?</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate SDSS NED HEASARC MAST database archives">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between HEASARC and MAST as astronomical data archives. What types of telescopes and wavelength data does each primarily host, and who are their intended users?</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the SAS (Science Analysis System) software and explain how it is used to reduce and analyze X-ray data from the XMM-Newton satellite.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram data pipeline CCD reduction bias dark flat field">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the CCD data reduction pipeline used in optical astronomy. Explain the purpose of bias frames, dark frames, and flat field frames, and how they are applied to produce a science-ready image.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a flowchart of the pipeline: Raw frame → bias subtraction → dark subtraction → flat-field division → science image. Explain each correction step and the mathematical operation applied.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3" data-text="database SDSS MAST NED HEASARC types archives differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the major astronomical databases used in modern astrophysics research. With the aid of schematics, differentiate between SDSS, MAST, NED, and HEASARC in terms of their data coverage, wavelength range, and the type of science they enable.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">schematic required</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for the big picture — why distributed databases are essential in modern astronomy (data volume, multi-wavelength science, reproducibility). 6 marks for the four database descriptions with a comparison table or block diagram.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 4 ═══════════════════════════════ -->
+    <div class="topic-section" id="t4">
+      <div class="topic-header">
+        <div class="topic-num">T-04</div>
+        <div>
+          <div class="topic-name">Detectors in Astronomy</div>
+          <div class="topic-desc">PMT · CCD · CMOS · IR detectors · Radio receivers · X-ray detectors · QE · Noise · Sensitivity</div>
+        </div>
+        <div class="topic-count">8 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram CCD working principle charge transfer quantum efficiency readout noise">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the working principle of a CCD (Charge-Coupled Device) detector. Explain the processes of charge generation, transfer, and readout, and describe the key performance characteristics: quantum efficiency, dark current, and readout noise.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a cross-section of a CCD pixel array showing the potential wells, then a second diagram showing the serial register and output amplifier. Label: photon → electron-hole pair → potential well → shift register → ADC output. For each noise source, state its physical origin and how it is minimized.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram detectors photomultiplier CCD CMOS X-ray infrared multiwavelength differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the types of detectors used in multiwavelength astronomy. With the aid of diagrams, differentiate between photomultiplier tubes, CCD detectors, CMOS sensors, and X-ray detectors in terms of their working principles, wavelength sensitivity, and applications.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for a general overview of why different wavelengths require different detector physics (photon energy, interaction mechanism). 6 marks for four labelled detector diagrams — PMT (dynode chain), CCD (potential wells), CMOS (active pixel sensor), X-ray (proportional counter or microcalorimeter).</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate CCD CMOS sensor noise architecture astronomy">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between CCD detectors and CMOS sensors in terms of readout architecture, noise levels, power consumption, and current status in modern astronomical cameras.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the working of a photomultiplier tube (PMT) and explain how it achieves single-photon counting sensitivity. Why are PMTs still preferred for time-resolved photometry?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features detector quantum efficiency sensitivity noise dark current">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of detector performance in astronomy. Explain the meaning of quantum efficiency (QE), sensitivity, dynamic range, linearity, and noise (readout noise, shot noise, dark current), and how each affects the quality of astronomical observations.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the types of detectors used in radio astronomy and infrared astronomy. Describe the working of a bolometer, a heterodyne receiver, and an HgCdTe infrared array, and state which wavelength regime each is suited for.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method SNR estimate signal noise detector quantum efficiency dark current">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-calc">numerical</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to estimate the signal-to-noise ratio (SNR) of a CCD observation of a faint star. What are the dominant noise sources and how does increasing the exposure time help?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Full-well capacity &nbsp;&nbsp; (2) Back-illuminated CCD &nbsp;&nbsp; (3) Electron Multiplying CCD (EMCCD).</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following characteristics of astronomical detectors: Quantum Efficiency, Dark Current, Readout Noise, and Dynamic Range. Explain how cooling a CCD to −100°C reduces dark current.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the light-gathering power of telescopes of aperture 10 cm, 1 m, and 8.2 m relative to the human eye (pupil diameter = 7 mm). Use LGP ratio = (D_tel / D_eye)².</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate IR detector radio receiver X-ray detector wavelength">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between infrared (IR) detectors and radio receivers in terms of the physical detection mechanism, operating temperature, and the type of astronomical phenomena they can study.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the working of an X-ray detector used on a space telescope (e.g., a CCD on Chandra or a microcalorimeter on Hitomi/XRISM) and explain how it measures both the position and energy of incoming X-ray photons.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram photomultiplier tube PMT dynode photocathode working principle">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the working principle of a photomultiplier tube (PMT). Explain the roles of the photocathode, dynode chain, and anode, and describe how single-photon sensitivity is achieved.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw: glass envelope → photocathode (photoelectric emission) → focusing electrodes → cascade of dynodes (secondary electron emission, typically 10–14 dynodes) → anode (current output). State the gain formula G = δⁿ where δ = secondary emission coefficient, n = number of dynodes.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4" data-text="salient features multiwavelength detector overview bolometer heterodyne">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of detectors used in multiwavelength astronomy. For each wavelength regime — optical, near-IR, mid-IR, radio, and X-ray — identify the appropriate detector type and the key physical mechanism of detection.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the meaning of noise in astronomical detectors. Describe the three main noise sources — photon shot noise, dark current noise, and readout noise — and show how the total noise combines. When does each dominate?</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 5 ═══════════════════════════════ -->
+    <div class="topic-section" id="t5">
+      <div class="topic-header">
+        <div class="topic-num">T-05</div>
+        <div>
+          <div class="topic-name">Solar Structure &amp; Energy</div>
+          <div class="topic-desc">Layers of the Sun · Photosphere · Chromosphere · Corona · pp chain · Hydrostatic equilibrium · Energy transport</div>
+        </div>
+        <div class="topic-count">9 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram layers sun photosphere chromosphere corona core radiative convective zone">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the various layers of the Sun — from the core to the corona — describing the temperature, density, physical processes, and observational features of each layer.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a labelled cross-section of the Sun with 6 zones: core (15M K, pp chain), radiative zone (photon diffusion, 170,000 yr), convective zone (convection cells), photosphere (5778 K, Fraunhofer lines), chromosphere (H-α, spicules), corona (1–2 MK, solar wind). Include temperatures and distances from center.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram proton proton pp chain nuclear fusion energy neutrino">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the proton-proton (pp) chain nuclear reaction in the solar core. Write out each step of the PP-I chain, state the net energy released, and explain the role of neutrinos and the solar neutrino problem.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw an energy level / reaction diagram. Write all 3 steps: (1) p+p → ²H+e⁺+νₑ, (2) ²H+p → ³He+γ, (3) ³He+³He → ⁴He+2p. Net: 4H → He-4 + 26.73 MeV. Then: Homestake experiment deficit → neutrino oscillations → SNO confirmation.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate radiative zone convective zone energy transport Sun">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the radiative zone and the convective zone inside the Sun. For each zone, state its radial extent, the dominant energy transport mechanism, the physical reason for that mechanism, and the estimated temperature range.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe hydrostatic equilibrium in the solar interior. Write and interpret the equation dP/dr = −GM(r)ρ/r². Explain what would physically happen if this balance were disrupted, and how it connects to helioseismology.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate photosphere chromosphere corona temperature features">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the photosphere, chromosphere, and corona of the Sun in terms of temperature, density, emission characteristics, and the observational techniques used to study each layer.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the coronal heating problem and explain two proposed mechanisms — wave heating and nanoflare heating — that are currently debated as solutions to why the corona is at ~1–2 MK while the photosphere is only ~5778 K.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram layers sun photosphere chromosphere corona atmospheric differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the atmospheric layers of the Sun. With the aid of diagrams, differentiate between the photosphere, chromosphere, transition region, and corona in terms of temperature profile, density, key spectral features, and the phenomena observed in each.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for general introduction to the solar atmosphere — why temperature increases outward (coronal heating problem) and the concept of optical depth. 6 marks for four distinct region diagrams/descriptions with temperature values and key observational signatures.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features pp chain nuclear fusion energy production solar">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the proton-proton chain as the primary energy source of the Sun. Write the complete reaction sequence, state the energies released at each step, and explain how this determines the Sun's lifetime on the main sequence.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the mechanism of energy transport from the solar core to the surface. Describe radiation transport in the radiative zone (including the concept of photon mean free path and random walk), the Schwarzschild instability criterion, and convective transport.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method calculate lifetime sun energy luminosity estimate">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">numerical</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to estimate the main-sequence lifetime of the Sun using its luminosity (L☉ = 3.8 × 10²⁶ W), total mass (M☉ = 2 × 10³⁰ kg), and assuming 10% of its hydrogen is available for fusion with 0.7% mass conversion efficiency.</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Solar Neutrino Problem &nbsp;&nbsp; (2) Tachocline &nbsp;&nbsp; (3) Granulation.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following physical conditions in the solar interior: Hydrostatic equilibrium (with equation), Radiation pressure, and the Virial theorem for a self-gravitating gas sphere.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the central pressure of the Sun using the hydrostatic equilibrium equation: P_c ≈ GM☉²/(4πR☉⁴). Use M☉ = 2×10³⁰ kg, R☉ = 7×10⁸ m, G = 6.67×10⁻¹¹ Nm²/kg².</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram energy transport convection radiation photon diffusion random walk">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the energy transport mechanisms inside the solar interior, covering radiative diffusion in the radiative zone and convective transport in the convective zone. Explain the physical condition (Schwarzschild criterion) that determines which mechanism operates.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Two diagrams: (1) a cartoon of a photon undergoing random walk in the radiative zone, showing mean free path ~1 cm, total path ~170,000 yr. (2) A convection cell — hot blob rises, cools, sinks — in the convection zone, showing granulation at the surface. State Schwarzschild criterion: ∇_actual > ∇_adiabatic → convective instability.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate PP chain CNO cycle nuclear fusion stars">
+        <div class="q-head" >
+          <div class="q-num-badge">9</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the proton-proton (pp) chain and the CNO cycle as mechanisms of hydrogen fusion in stars. Which dominates in the Sun and why? At what stellar mass does the CNO cycle take over?</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the Fraunhofer absorption lines in the solar spectrum and explain how they are used to determine the chemical composition of the Sun's photosphere. What was the historical significance of the D-line of sodium and the line that led to the discovery of helium?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 6 ═══════════════════════════════ -->
+    <div class="topic-section" id="t6">
+      <div class="topic-header">
+        <div class="topic-num">T-06</div>
+        <div>
+          <div class="topic-name">Solar Formation &amp; Evolution</div>
+          <div class="topic-desc">Molecular cloud · Solar nebular model · Solar spectrum &amp; composition · Post-main sequence evolution</div>
+        </div>
+        <div class="topic-count">6 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features solar nebular model molecular cloud formation Sun">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the solar nebular model of Sun formation. Describe the stages from molecular cloud collapse to the T Tauri phase and the arrival on the main sequence.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the phases through which the Sun evolves after it runs out of hydrogen in its core — covering the subgiant phase, red giant branch, helium flash, horizontal branch, asymptotic giant branch, planetary nebula, and final white dwarf stage.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram post main sequence evolution sun red giant AGB white dwarf HR diagram">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the post-main-sequence evolution of a solar-type star. Trace its evolutionary track on the Hertzsprung-Russell (H-R) diagram from the main sequence to the white dwarf stage.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">HR diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw an H-R diagram (L vs T_eff) and trace the evolutionary track: ZAMS → subgiant → red giant (up the RGB) → horizontal branch → AGB → planetary nebula ejection → white dwarf cooling track. Label each stage with the dominant nuclear burning process.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate molecular cloud protostar T Tauri main sequence sun formation">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the Jeans instability collapse of a molecular cloud and the formation of a protostellar disk. What physical conditions trigger the collapse and what prevents it (Jeans criterion)?</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the T Tauri phase of stellar evolution and explain how the young Sun transitioned from a pre-main-sequence object to a stable hydrogen-burning main sequence star.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4" data-text="salient features solar spectrum chemical composition Fraunhofer lines">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the solar spectrum. Explain what the Fraunhofer absorption lines reveal about the photospheric composition, temperature, and physical conditions. How was helium first discovered through solar spectroscopy?</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the triple-alpha process and the s-process nucleosynthesis that occurs during the AGB phase of solar evolution. How do these processes enrich the interstellar medium with carbon and heavier elements?</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method determine chemical composition sun spectrum Fraunhofer helium flash helium burning">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to determine the chemical composition of the Sun's photosphere using its absorption line spectrum. What instruments are needed and what physical law (Boltzmann/Saha equation) connects line strength to abundance?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Helium flash &nbsp;&nbsp; (2) Planetary nebula &nbsp;&nbsp; (3) Chandrasekhar limit.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following evolutionary stages of a solar-type star: Subgiant, Red Giant Branch (RGB), Asymptotic Giant Branch (AGB), and White Dwarf. State the dominant nuclear process and approximate luminosity at each stage.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the total energy the Sun can generate via fusion if 10% of its hydrogen (M☉ = 2×10³⁰ kg, 71% H) undergoes pp chain fusion with 0.7% mass-to-energy conversion (E = mc²). Compare this to the energy at its current luminosity of 3.8×10²⁶ W.</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3" data-text="diagram post main sequence evolution sun phases RGB AGB white dwarf differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the post-main-sequence evolution of the Sun. With the aid of a diagram (H-R diagram), differentiate between the subgiant phase, red giant branch, horizontal branch, and asymptotic giant branch in terms of core composition, dominant nuclear reactions, luminosity, and radius.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">H-R diagram required</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for the general narrative of why a star leaves the main sequence (core H exhaustion → shell burning → expansion). 6 marks for four stages on the H-R diagram, each with dominant burning process, approximate L and R, and key observable feature.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 7 ═══════════════════════════════ -->
+    <div class="topic-section" id="t7">
+      <div class="topic-header">
+        <div class="topic-num">T-07</div>
+        <div>
+          <div class="topic-name">Solar Activity &amp; Properties</div>
+          <div class="topic-desc">Colour · Rotation period · Magnetic field · Solar dynamo · Sunspots · Solar winds · Flares · CMEs · Helioseismology</div>
+        </div>
+        <div class="topic-count">8 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate solar cycle magnetic cycle 11 year sunspot activity">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the solar cycle (11-year sunspot cycle) and the magnetic cycle (22-year Hale cycle) of the Sun. Explain what reverses at the end of each cycle and how the butterfly diagram reflects the sunspot migration.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe a sunspot and explain how the magnetic field strength inside a sunspot can be measured using the Zeeman effect. What is the typical field strength and why is the sunspot darker than the surrounding photosphere?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram solar dynamo differential rotation alpha omega tachocline magnetic field">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the solar dynamo mechanism. Explain how differential rotation (Ω-effect) and convective helicity (α-effect) together generate and maintain the Sun's large-scale magnetic field.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw two diagrams: (1) Ω-effect — differential rotation winds up a poloidal field into a toroidal field (show equator rotating faster). (2) α-effect — convective turbulence with helicity regenerates poloidal field. Label the tachocline as the seat of dynamo action. Mention 11-year polarity reversal.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method calculate rotation period sun sunspot method Doppler">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to calculate the rotation period of the Sun using sunspot tracking. How does the observed period differ from the synodic period, and how is the sidereal rotation period calculated?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Helioseismology &nbsp;&nbsp; (2) Coronal Mass Ejections (CMEs) &nbsp;&nbsp; (3) Chromospheric Heating.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following characteristics of the Sun: Colour Index (B–V), Differential Rotation (with Carrington rotation period), and Main Sequence Lifetime. State the numerical value or formula for each.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the synodic and sidereal rotation period of the Sun at the equator, given that a sunspot moves 13.2°/day in heliocentric longitude and the Earth moves 0.986°/day around the Sun.</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features helioseismology p-modes g-modes solar interior probe">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of helioseismology. Explain how p-mode oscillations (5-minute oscillations) are detected, what they reveal about the solar interior (sound speed, density profile, rotation), and how the depth of the convection zone was confirmed.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the solar activity phenomena: sunspots, solar flares, coronal mass ejections, and solar wind. Discuss how each of these is related to the 11-year solar cycle and their effects on Earth (space weather, geomagnetic storms, aurora).</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate solar wind coronal mass ejection CME flare eruption">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between solar flares and coronal mass ejections (CMEs) in terms of their energy source, timescale, particles/fields ejected, propagation speed, and their effects on Earth's magnetosphere and ionosphere.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the solar wind and explain how it originates from the open magnetic field lines in coronal holes. What is the average speed and particle flux at 1 AU, and how does it create the heliosphere?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3" data-text="diagram solar activity sunspot flare CME solar wind 11 year cycle differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the types of solar activity phenomena. With the aid of diagrams, differentiate between sunspots, solar flares, coronal mass ejections (CMEs), and solar wind in terms of their physical origin, magnetic structure, timescale, and impact on the space environment.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for an overview of how solar magnetism drives all forms of solar activity. 6 marks for four individual descriptions with diagrams — sunspot (cross-section with B field lines), flare (magnetic reconnection cartoon), CME (flux rope ejection), solar wind (open field line corona).</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram helioseismology p modes oscillations 5 minute solar interior">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the principles of helioseismology. Explain how pressure (p-mode) and gravity (g-mode) oscillations of the Sun are detected and what they reveal about the Sun's internal structure that cannot be directly observed.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a cross-section of the Sun with curved ray paths showing p-modes (acoustic, bounce off the surface, refract in the interior), and g-modes (trapped in the radiative zone). Label the 5-minute oscillation period. Explain how the power spectrum is obtained via Doppler imaging.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5" data-text="suggest method magnetic field zeeman effect sunspot helioseismology explain terms">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to measure the magnetic field inside a sunspot using the Zeeman effect. Describe the spectroscopic observation setup and the formula used to calculate B from line splitting.</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Differential Rotation &nbsp;&nbsp; (2) Butterfly Diagram (Spörer's law) &nbsp;&nbsp; (3) Maunder Minimum.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following characteristics of the Sun's magnetic activity: Hale's Polarity Law, the Solar Dynamo (α-Ω mechanism), and the Tachocline's role in field amplification.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the energy released in a typical X-class solar flare (~10²⁵ J) and compare it to the Sun's luminosity output over the same duration (typically 10 minutes). What fraction of the Sun's total output does a large flare represent?</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 8 ═══════════════════════════════ -->
+    <div class="topic-section" id="t8">
+      <div class="topic-header">
+        <div class="topic-num">T-08</div>
+        <div>
+          <div class="topic-name">Solar System Architecture</div>
+          <div class="topic-desc">Terrestrial &amp; Jovian planets · Asteroid belt · Kuiper belt · Comets · Meteors · Dwarf planets · Major missions</div>
+        </div>
+        <div class="topic-count">8 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram solar system architecture terrestrial jovian planets belt zones">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the architecture of the solar system. Describe the major zones — the terrestrial region, asteroid belt, Jovian region, Kuiper belt, and Oort cloud — and explain the physical differences between terrestrial and Jovian planets in terms of size, density, and atmospheric composition.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a scale-free schematic of the solar system with the Sun at the center, showing all 8 planets in order, the asteroid belt between Mars and Jupiter, the Kuiper belt beyond Neptune, and indicate the Oort cloud. Include a table comparing density, size, atmosphere for the two planet types.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate terrestrial Jovian planets size density atmosphere composition">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between terrestrial and Jovian planets with specific numerical examples. Compare their orbital distances from the Sun, radii, masses, average densities, atmospheric composition, and number of moons.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the structure of a comet and explain how its coma, ion tail, and dust tail develop as it approaches the Sun. What causes the ion tail to always point directly away from the Sun?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate asteroid belt Kuiper belt Oort cloud composition location">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the asteroid belt and the Kuiper belt in terms of their location, size, composition, number of objects, and the types of bodies they contain. Why did a full planet not form in these regions?</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the IAU definition of a dwarf planet and explain why Pluto was reclassified in 2006. Name three other dwarf planets in the solar system and state their locations.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram major missions Cassini Juno MOM Chandrayaan differentiate solar system">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the major robotic missions to the solar system. With the aid of diagrams or schematics, differentiate between the Cassini (Saturn), Juno (Jupiter), MOM/Mangalyaan (Mars), and Chandrayaan (Moon) missions in terms of their scientific objectives, instruments, and key discoveries.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">schematics required</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for the context of solar system exploration and what each mission type aims to achieve (orbiter, lander, flyby). 6 marks for the four missions — each with: target body, launch year, mission type, one key instrument, and one landmark discovery.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features solar system architecture comparison exoplanetary systems">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the solar system architecture. Compare the physical properties and orbital characteristics of the eight planets, and explain how the frost line divides the inner and outer solar system.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain how the planetary architecture of the solar system compares with exoplanetary systems discovered by Kepler and TESS. Discuss the prevalence of Hot Jupiters, super-Earths, and compact multi-planet systems, which are common in exoplanet surveys but absent in our solar system.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method calculate temperature planet equilibrium asteroid belt Kuiper belt dwarf planet">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-calc">numerical</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to calculate the equilibrium temperature of a planet using the formula: T_eq = T☉ × (R☉/2d)^(1/2) × (1-A)^(1/4). What factors determine whether a planet is warmer or cooler than this prediction?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Asteroid Belt &nbsp;&nbsp; (2) Kuiper Belt Objects (KBOs) &nbsp;&nbsp; (3) Dwarf Planet.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following characteristics of outer solar system bodies: Tisserand parameter (for comet vs asteroid classification), Jupiter Trojan asteroids, and Resonant KBOs (Plutinos in 3:2 resonance with Neptune).</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the equilibrium temperature of Mars (d = 1.52 AU, A = 0.25), Jupiter (d = 5.2 AU, A = 0.52), and Neptune (d = 30.1 AU, A = 0.41). Use T☉ = 5778 K, R☉ = 6.96×10⁸ m. Compare with observed temperatures and comment.</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram comets structure coma tail nucleus short period long period">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the structure and classification of comets. Explain the nucleus, coma, hydrogen envelope, ion tail, and dust tail, and differentiate between short-period and long-period comets.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a comet approaching the Sun showing: nucleus (~1–10 km), coma (~100,000 km), H-envelope (~10⁷ km), dust tail (yellow, curved, pointing away from Sun but following orbital path), ion tail (blue, straight, pointing directly anti-solar). State that ion tail is formed by solar wind interaction.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate meteor meteorite meteoroid shooting star composition">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between meteoroids, meteors, and meteorites. Explain how meteor showers occur, why they recur annually at the same date, and give two named examples with their parent comets.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the Cassini mission to Saturn. Explain the key discoveries made at Titan (methane lakes, thick atmosphere) and Enceladus (water geysers, subsurface ocean) and their astrobiological significance.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 9 ═══════════════════════════════ -->
+    <div class="topic-section" id="t9">
+      <div class="topic-header">
+        <div class="topic-num">T-09</div>
+        <div>
+          <div class="topic-name">Planet Formation</div>
+          <div class="topic-desc">Gravitational instability · Core accretion · Planetary architecture · Kepler · TESS · PLATO · Ariel · HabEx</div>
+        </div>
+        <div class="topic-count">7 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features core accretion model planet formation gravitational instability">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the core accretion model of planet formation. Describe the sequential stages from dust grain coagulation to planetesimal formation, runaway accretion, and final gas giant formation beyond the frost line.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the gravitational instability (GI) model of planet formation. State the Toomre stability criterion (Q = c_s κ / πGΣ), describe when the disk is unstable, and explain why this model is more suited for forming giant planets at large separations.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate core accretion gravitational instability planet formation mechanisms">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the core accretion model and the gravitational instability model of planet formation. Discuss the timescale of formation, the required disk conditions, and which model better explains the gas giants in our solar system.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the concept of disk migration (Type I and Type II) and explain how it accounts for the existence of Hot Jupiters orbiting very close to their host stars despite forming beyond the frost line.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features Kepler TESS Plato Ariel missions exoplanet survey">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the Kepler and TESS missions. Compare their design philosophy, field of view, target stars, planet detection statistics, and how they complement each other in building a complete census of exoplanets.</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the key objectives and design features of the future missions: PLATO (PLAnetary Transits and Oscillations of stars) and Ariel (Atmospheric Remote-sensing Infrared Exoplanet Large-survey). How do they build on the legacy of Kepler and TESS?</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram Kepler TESS PLATO Ariel missions comparison differentiate">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the major space missions dedicated to planet detection and characterization. With the aid of diagrams or schematics, differentiate between Kepler, TESS, PLATO, and Ariel in terms of their observational strategy, wavelength coverage, target stars, and primary scientific objectives.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">schematics required</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for the general context of transit survey evolution and why we need multiple missions. 6 marks for four mission descriptions — each with telescope aperture, sky coverage, target brightness, and the key science it uniquely addresses.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram planet formation protoplanetary disk dust grain planetesimal accretion core">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the core accretion model of planet formation. Trace the process from sub-micron dust grain coagulation to the formation of a gas giant, highlighting the role of the frost line and the critical core mass (~10 M⊕) for runaway gas accretion.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw a flowchart: dust grains (~μm) → aggregates → pebbles (~cm) → planetesimals (~km) → planetary embryos (~10³ km) → rocky planets OR → critical core (~10 M⊕) + runaway gas accretion → giant planet. Mark the frost line and explain the density jump in solid material beyond it.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5" data-text="suggest method HabEx habitable zone detection biosignatures life">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method using the HabEx (Habitable Exoplanet Observatory) concept to directly image an Earth-like planet around a nearby star. What is the role of a starshade (external occulter) in suppressing stellar light?</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Snow/Frost line &nbsp;&nbsp; (2) Planetary migration (Type II) &nbsp;&nbsp; (3) Stellar metallicity-planet correlation.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following critical milestones in planetary formation: Jeans collapse, Runaway accretion, Oligarchic growth, and Giant impact phase. State the typical timescale and mass range for each stage.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the minimum orbital period detectable by the Kepler mission for an Earth-sized planet (requiring 3 transits in a 4-year mission). Also estimate the transit depth ΔF/F = (R_Earth/R_Sun)² and comment on the required photometric precision.</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate solar system exoplanetary architecture comparison hot jupiter super-earth">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the planetary architecture of the solar system and typical exoplanetary systems discovered by Kepler. Focus on the differences in: planetary size distribution, orbital period distribution, and the prevalence of compact multi-planet systems around Sun-like stars.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the Nice model and the Grand Tack hypothesis as theories for the early dynamical evolution of the solar system. How do they explain the Late Heavy Bombardment period and the current positions of Jupiter and Saturn?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ TOPIC 10 ═══════════════════════════════ -->
+    <div class="topic-section" id="t10">
+      <div class="topic-header">
+        <div class="topic-num">T-10</div>
+        <div>
+          <div class="topic-name">Exoplanets</div>
+          <div class="topic-desc">Radial velocity · Transit photometry · Direct imaging · Light curve · Transmission spectroscopy · Hot Jupiters · Mini-Neptunes · Biosignatures</div>
+        </div>
+        <div class="topic-count">10 questions</div>
+      </div>
+
+      <div class="q-card" data-pattern="p3 10mark" data-text="diagram exoplanet detection methods radial velocity transit direct imaging astrometric">
+        <div class="q-head" >
+          <div class="q-num-badge">1</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the methods of exoplanet detection. With the aid of diagrams, differentiate between the radial velocity method, transit photometry, direct imaging, and gravitational microlensing in terms of their physical principles, the type of planets they preferentially detect, and notable examples.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">diagrams required</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for a general overview of why multiple methods are needed (detection biases, parameter sensitivity). 6 marks for four diagrams — RV curve, transit light curve, direct imaging contrast ratio setup, microlensing light curve — each with the key measured quantity and one example discovery.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate radial velocity transit photometry exoplanet detection method">
+        <div class="q-head" >
+          <div class="q-num-badge">2</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between the radial velocity (RV) method and transit photometry as exoplanet detection techniques. For each: state the physical principle, what parameter it measures, its detection bias (what types of planets are more easily found), and one named example planet discovered by each method.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe a transit light curve and explain what can be determined from: (1) the transit depth ΔF/F, (2) the transit duration, (3) the shape of ingress and egress, and (4) transit timing variations (TTVs).</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1 10mark" data-text="diagram transit photometry light curve exoplanet detection flux drop">
+        <div class="q-head" >
+          <div class="q-num-badge">3</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the transit photometry method for detecting exoplanets. Explain how the transit light curve is produced, derive the relationship between transit depth and planet-to-star radius ratio, and explain how the orbital period and planetary radius are determined.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw two diagrams: (1) the geometry — star, planet disk on face, limb darkening; (2) the resulting light curve with labeled features: out-of-transit baseline, ingress, flat bottom (full transit), egress, depth ΔF/F = (Rp/R★)². Explain: period from repetition, semi-major axis from Kepler's 3rd law (a³/T² = GM★/4π²).</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2 10mark" data-text="differentiate Hot Jupiter mini Neptune super Earth exoplanet types classes">
+        <div class="q-head" >
+          <div class="q-num-badge">4</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between Hot Jupiters and mini-Neptunes as classes of exoplanets. Compare their typical mass, radius, orbital period, density, atmospheric composition, formation pathway, and frequency among known exoplanets.</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the star-planet tidal interactions in Hot Jupiter systems. Explain how tidal locking, orbital decay, Roche lobe overflow, and the Rossiter-McLaughlin effect are observed and what they tell us about the history of these systems.</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4 10mark" data-text="salient features transmission spectroscopy atmosphere exoplanet biosignature life">
+        <div class="q-head" >
+          <div class="q-num-badge">5</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span><span class="tag tag-hot">⭐ important</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of transmission spectroscopy as a technique for characterizing exoplanet atmospheres. Explain the physical principle, the scale height formula H = k_BT/μm_Hg, what molecular signatures (H₂O, CO₂, CH₄, O₂) are sought, and what JWST has already revealed (WASP-39b result).</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the signatures of life (biosignatures) that astronomers search for in exoplanet atmospheres. Discuss O₂+CH₄ chemical disequilibrium, ozone (O₃) as a proxy for O₂, dimethyl sulfide, and the limitations and false-positive scenarios that make biosignature detection challenging.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p5 10mark" data-text="suggest method detect exoplanet radial velocity estimate transit depth radius mass">
+        <div class="q-head" >
+          <div class="q-num-badge">6</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p5">Q5 pattern</span><span class="tag tag-hot">⭐ important</span><span class="tag tag-calc">numerical</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Suggest a method to detect an exoplanet using the radial velocity technique. Describe the setup (telescope, spectrograph, iodine cell or simultaneous ThAr calibration), what is measured, and what the RV semi-amplitude K reveals about the planet's minimum mass M_p sin i.</div><div class="sub-marks">4 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Explain the following terms: (1) Hot Jupiter &nbsp;&nbsp; (2) Transmission Spectroscopy &nbsp;&nbsp; (3) Habitable Zone.</div><div class="sub-marks">3×2 = 6 marks</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)(i)</div><div class="sub-text">Define the following key parameters measured from exoplanet observations: Transit Depth (ΔF/F), RV Semi-amplitude (K), Impact parameter (b), and Bulk density (ρ_p). Explain what each tells us about the planet.</div><div class="sub-marks">6 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(b)(ii)</div><div class="sub-text">Estimate the transit depth for: (i) a Jupiter-sized planet (R_J = 11.2 R_E) around a Sun-like star (R_☉ = 109 R_E), and (ii) a super-Earth with R = 2 R_E around the same star. State whether Kepler could detect each, given its photometric precision of ~20 ppm.</div><div class="sub-marks">4 marks</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p1" data-text="diagram radial velocity method RV curve stellar wobble Doppler shift exoplanet">
+        <div class="q-head" >
+          <div class="q-num-badge">7</div>
+          <div class="q-main">
+            <div class="q-text">With the aid of a diagram, discuss the radial velocity (RV) method for detecting exoplanets. Explain the Doppler shift principle, draw the expected RV curve for a circular orbit, and describe how the planetary mass (M_p sin i), orbital period, and eccentricity are derived from it.</div>
+            <div class="q-tags"><span class="tag tag-p1">Q1 pattern</span><span class="tag tag-diag">diagram required</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>How to answer:</strong> Draw: (1) geometry — star + planet orbiting center of mass, with star wobbling, an observer far to the right. (2) RV curve — sinusoidal with labeled K (semi-amplitude), P (period), and v_sys (systemic velocity). State K = (2πG/P)^1/3 × M_p sin i / (M★+M_p)^2/3. Explain the sin i degeneracy.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p3" data-text="Hot Jupiter mini Neptune super Earth types exoplanet comparison diagram">
+        <div class="q-head" >
+          <div class="q-num-badge">8</div>
+          <div class="q-main">
+            <div class="q-text">Discuss about the major categories of exoplanets discovered so far. With the aid of a radius-period or mass-radius diagram, differentiate between Hot Jupiters, mini-Neptunes, super-Earths, and Earth-like planets in terms of their physical properties, detection method, and atmospheric characteristics.</div>
+            <div class="q-tags"><span class="tag tag-p3">Q3 pattern</span><span class="tag tag-diag">mass-radius diagram</span><span class="tag tag-calc">4+6 marks</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="hint-box"><strong>Mark split:</strong> 4 marks for the statistical landscape from Kepler — the occurrence rate plot showing the hot Jupiter desert, the radius gap (Fulton gap at ~1.8 R_E). 6 marks for four planet class descriptions with mass, radius, density, atmosphere type, and one named example each.</div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p4" data-text="salient features direct imaging exoplanet coronagraph angular separation contrast ratio">
+        <div class="q-head" >
+          <div class="q-num-badge">9</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p4">Q4 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)</div><div class="sub-text">Discuss the salient features of the direct imaging method for exoplanet detection. Explain the stellar contrast problem, how coronagraphs and starshades suppress stellar light, what types of planets are detectable, and give examples of directly imaged planets (HR 8799 system, beta Pic b).</div></div>
+          <div class="or-divider"><div class="or-line"></div><div class="or-tag">OR</div><div class="or-line"></div></div>
+          <div class="sub-part"><div class="sub-label">(b)</div><div class="sub-text">Explain the concept of the habitable zone and how it is defined for a given star. Discuss the optimistic and conservative habitable zone boundaries, describe the planets found in the TRAPPIST-1 habitable zone, and explain what JWST transmission spectroscopy can reveal about their atmospheres.</div></div>
+        </div>
+      </div>
+
+      <div class="q-card" data-pattern="p2" data-text="differentiate transmission emission spectroscopy exoplanet atmosphere day night side">
+        <div class="q-head" >
+          <div class="q-num-badge">10</div>
+          <div class="q-main">
+            <div class="q-text"></div>
+            <div class="q-tags"><span class="tag tag-p2">Q2 pattern</span></div>
+          </div>
+          
+        </div>
+        <div class="q-body">
+          <div class="sub-part"><div class="sub-label">(a)(i)</div><div class="sub-text">Differentiate between transmission spectroscopy (during transit) and emission spectroscopy (during secondary eclipse) as techniques for probing exoplanet atmospheres. What different information about the day-side and terminator atmosphere does each provide?</div><div class="sub-marks">5 marks</div></div>
+          <div class="sub-part"><div class="sub-label">(a)(ii)</div><div class="sub-text">Describe the concept of mini-Neptune photoevaporation and the Fulton/radius gap. Why do planets with 1.5–2 R_E appear to be rare in the Kepler sample, and what role does stellar XUV irradiation play in creating this gap?</div><div class="sub-marks">5 marks</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main -->
+
+<script>
+var currentFilter = 'all';
+
+function goTo(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var main = document.getElementById('main');
+  var topOffset = el.offsetTop - 80;
+  main.scrollTo({ top: topOffset, behavior: 'smooth' });
+  document.querySelectorAll('.sb-link').forEach(function(l){ l.classList.remove('active'); });
+  var clicked = document.querySelector('.sb-link[data-target="' + id + '"]');
+  if (clicked) clicked.classList.add('active');
+}
+
+function filterPattern(p) {
+  currentFilter = p;
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (event && event.target) event.target.classList.add('active');
+  applyFilters();
+}
+
+function filterSearch() {
+  applyFilters();
+}
+
+function applyFilters() {
+  var search = document.getElementById('searchInput').value.toLowerCase();
+  var count = 0;
+  document.querySelectorAll('.q-card').forEach(function(card) {
+    var patternMatch = (currentFilter === 'all') || card.dataset.pattern.includes(currentFilter);
+    var textContent = (card.dataset.text || '') + card.innerText.toLowerCase();
+    var searchMatch = !search || textContent.includes(search);
+    if (patternMatch && searchMatch) {
+      card.classList.remove('hidden');
+      count++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  document.getElementById('totalCount').textContent = count;
+}
+
+window.addEventListener('load', function(){
+  var total = document.querySelectorAll('.q-card').length;
+  document.getElementById('totalCount').textContent = total;
+});
+
+document.getElementById('main').addEventListener('scroll', function() {
+  var sections = document.querySelectorAll('.topic-section');
+  var links = document.querySelectorAll('.sb-link[data-target]');
+  var scrollTop = this.scrollTop + 120;
+  var current = '';
+  sections.forEach(function(s){
+    if (s.offsetTop <= scrollTop) current = s.id;
+  });
+  links.forEach(function(l){
+    l.classList.remove('active');
+    if (l.dataset.target === current) l.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
